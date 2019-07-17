@@ -43,7 +43,7 @@ public class GPUImageMovieWriter extends GPUImageFilter {
     }
 
     @Override
-    public void onDraw(int textureId, FloatBuffer cubeBuffer, FloatBuffer textureBuffer) {
+    public synchronized void onDraw(int textureId, FloatBuffer cubeBuffer, FloatBuffer textureBuffer) {
         // Draw on screen surface
         super.onDraw(textureId, cubeBuffer, textureBuffer);
 
@@ -71,7 +71,7 @@ public class GPUImageMovieWriter extends GPUImageFilter {
         releaseEncodeSurface();
     }
 
-    public void startRecording(final String outputPath, final int width, final int height) {
+    public synchronized void startRecording(final String outputPath, final int width, final int height) {
         runOnDraw(new Runnable() {
             @Override
             public void run() {
@@ -98,7 +98,7 @@ public class GPUImageMovieWriter extends GPUImageFilter {
         });
     }
 
-    public void stopRecording() {
+    public synchronized void stopRecording() {
         runOnDraw(new Runnable() {
             @Override
             public void run() {
